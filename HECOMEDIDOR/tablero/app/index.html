@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Simulador de Cargas Eléctricas Domiciliarias</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+<div><h1>ECOMEDIDOR</h1><p>Ecomedidor · Medidor eléctrico del hogar</p></div>
+<div class="conexion"><span id="estadoConexion" class="estado off">● Desconectado</span><button id="btnConectar">Conectar Arduino</button></div>
+</header>
+<main>
+<section class="resumen">
+<div class="resumen-card principal"><span>Potencia actual</span><strong id="potenciaTotal">0 W</strong><small>Potencia instantánea de los aparatos conectados</small></div>
+<div class="resumen-card"><span>Energía acumulada</span><strong id="energiaTotal">0,00 kWh</strong><small>Consumo acumulado del período simulado</small></div>
+<div class="resumen-card"><span>Factura ANDE estimada</span><strong id="costoTotal">Gs. 0</strong><small>Aplicando automáticamente la faja residencial</small></div>
+</section>
+<section class="ande">
+<div><h2>Tarifa residencial ANDE</h2><p>Faja actual: <b id="fajaActual">0–50 kWh</b></p></div>
+<div class="tarifa-grande"><span>Precio aplicado</span><strong id="tarifaActual">311,55 Gs/kWh</strong></div>
+<div class="fajas"><div><b>0–50</b><span>311,55 Gs/kWh</span></div><div><b>51–150</b><span>349,89</span></div><div><b>151–300</b><span>365,45</span></div><div><b>301–500</b><span>403,82</span></div><div><b>501–1000</b><span>420,27</span></div><div><b>>1000</b><span>435,51</span></div></div>
+</section>
+<section class="prepago">
+<div class="prepago-titulo"><div><h2>Medidor prepago educativo</h2><p>Funciona como una recarga de saldo, similar a un plan prepago de telefonía.</p></div><span id="estadoSaldo" class="saldo-zero">Saldo agotado</span></div>
+<div class="prepago-grid">
+<div><span>Saldo disponible</span><strong id="saldo">Gs. 0</strong><small>Equivalente aproximado: <b id="saldoKwh">0,00 kWh aprox.</b></small></div>
+<div><span>Total recargado</span><strong id="recargado">Gs. 0</strong><small>Recargas realizadas en esta simulación</small></div>
+<div><span>Consumo debitado</span><strong id="costoPrepago">Gs. 0</strong><small>Valor educativo descontado del saldo</small></div>
+</div>
+<div class="barra"><div id="barraSaldo"></div></div>
+<div class="recarga"><label>Recargar saldo <input id="montoRecarga" type="number" min="1" step="1" value="15577.50"> Gs</label><button id="btnRecargar">Recargar</button><button id="btnCupoMinimo" class="secundario">Cupo mínimo 50 kWh</button></div>
+<p class="nota">El cupo mínimo se calcula como 50 kWh × 311,55 Gs/kWh = Gs. 15.577,50. El modo prepago es una simulación didáctica; no representa un servicio prepago comercial de ANDE.</p>
+</section>
+<section class="aparatos">
+<article class="aparato" id="cardTv"><div class="icono">TV</div><h2>TV Smart 32"</h2><p>150 W</p><div class="estado-aparato"><span class="led"></span><span id="txtTv">Desconectado</span></div><div class="datos"><span>Tiempo: <b id="tiempoTv">00:00:00</b></span><span>Consumo: <b id="energiaTv">0,00 kWh</b></span><span>Costo: <b id="costoTv">Gs. 0</b></span></div></article>
+<article class="aparato" id="cardVentilador"><div class="icono">FAN</div><h2>Ventilador de pie</h2><p>80 W</p><div class="estado-aparato"><span class="led"></span><span id="txtVentilador">Desconectado</span></div><div class="datos"><span>Tiempo: <b id="tiempoVentilador">00:00:00</b></span><span>Consumo: <b id="energiaVentilador">0,00 kWh</b></span><span>Costo: <b id="costoVentilador">Gs. 0</b></span></div></article>
+<article class="aparato" id="cardLuz"><div class="icono">LED</div><h2>Lámpara LED</h2><p>9 W</p><div class="estado-aparato"><span class="led"></span><span id="txtLuz">Desconectado</span></div><div class="datos"><span>Tiempo: <b id="tiempoLuz">00:00:00</b></span><span>Consumo: <b id="energiaLuz">0,00 kWh</b></span><span>Costo: <b id="costoLuz">Gs. 0</b></span></div></article>
+</section>
+<section class="controles"><span><b>Simulación:</b> los valores de potencia se pueden cambiar en <code>app.js</code>.</span><button id="btnReiniciar" class="secundario">Nueva simulación</button></section>
+<section class="panel"><h2>Lectura en tiempo real</h2><p id="mensaje">Conecta el Arduino mediante USB.</p><div class="log" id="log"></div></section>
+</main>
+<footer><span>Proyecto educativo · Tarifas residenciales ANDE de referencia.</span><span>⚠ No conectar cargas de 110/220/240 V al Arduino.</span></footer>
+<style>.ecm-nav{max-width:1250px;margin:0 auto;padding:10px 18px 40px;display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;font-family:Arial,sans-serif}.ecm-nav a{border-radius:8px;padding:12px 22px;background:#0984e3;color:#fff;font-weight:bold;text-decoration:none;font-size:14px}.ecm-nav a:hover{background:#0773c5}.ecm-nav a.ecm-otro{background:#00b894}.ecm-nav a.ecm-otro:hover{background:#00a383}</style>
+<nav class="ecm-nav"><a href="../../index.html">← Volver al inicio</a><a class="ecm-otro" href="../../arduino/app/index.html">Cambiar a modo Hogar</a></nav>
+<script src="app.js"></script>
+</body>
+</html>

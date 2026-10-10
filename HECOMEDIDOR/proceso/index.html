@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Proceso de Producción · ECOMEDIDOR</title>
+<style>*{box-sizing:border-box;margin:0}body{font-family:Arial,sans-serif;background:#eef2f5;color:#17202a}
+header{background:linear-gradient(135deg,#17202a,#1c3a3a);color:#fff;padding:22px 5%;display:flex;align-items:center;gap:20px;border-bottom:4px solid #00b894}
+.logo{height:72px;background:#fff;border-radius:12px;padding:6px}h1{font-size:30px;letter-spacing:2px;margin-bottom:5px}header p{color:#bdc7d1}
+main{max-width:1000px;margin:28px auto;padding:0 18px;text-align:center}main>h2{font-size:28px}main>p{color:#68737d;margin:6px 0 34px}
+.frame{position:relative;background:#17202a;border:4px solid #00b894;border-radius:22px;padding:16px;box-shadow:0 0 0 7px #00b89422,0 22px 50px #0003}
+.frame:before,.frame:after{content:"";position:absolute;width:38px;height:38px;border:5px solid #55efc4;pointer-events:none}.frame:before{top:-10px;left:-10px;border-right:0;border-bottom:0;border-radius:14px 0 0 0}.frame:after{bottom:-10px;right:-10px;border-left:0;border-top:0;border-radius:0 0 14px 0}
+.tag{position:absolute;top:-17px;left:50%;translate:-50%;background:#00b894;color:#fff;font-weight:bold;font-size:13px;letter-spacing:3px;padding:6px 18px;border-radius:20px;white-space:nowrap}
+.stage{position:relative;height:min(70vh,620px);border-radius:12px;overflow:hidden;background:#0e151c var(--b) center/cover}
+.stage:before{content:"";position:absolute;inset:-30px;background:var(--b) center/cover;filter:blur(26px) brightness(.55)}
+.s{position:absolute;inset:0;opacity:0;transition:opacity .7s;display:flex;justify-content:center}.s.on{opacity:1}.s img{height:100%;max-width:100%;object-fit:contain;position:relative}
+.ar{position:absolute;top:calc(50% - 24px);width:48px;height:48px;border-radius:50%;border:0;background:#00b894dd;color:#fff;font-size:24px;font-weight:bold;cursor:pointer;z-index:3;transition:.2s}.ar:hover{background:#0984e3;scale:1.1}#pv{left:12px}#nx{right:12px}
+.bar{display:flex;justify-content:space-between;align-items:center;color:#fff;padding:14px 6px 8px;gap:12px}#cap{font-size:18px;font-weight:bold}#ct{color:#55efc4;font-weight:bold}
+.pg{height:4px;background:#2a3b49;border-radius:4px;overflow:hidden;margin:0 6px 12px}.pg i{display:block;height:100%;width:0;background:#00b894}
+#th{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}#th img{width:58px;height:58px;object-fit:cover;border-radius:8px;opacity:.5;cursor:pointer;border:2px solid transparent;transition:.2s}#th img.on{opacity:1;border-color:#55efc4}
+a.btn{display:inline-block;margin:30px 0 40px;border-radius:8px;padding:12px 22px;background:#0984e3;color:#fff;font-weight:bold;text-decoration:none}
+@media(max-width:700px){h1{font-size:22px}.stage{height:62vh}#th img{width:44px;height:44px}#cap{font-size:15px}}</style></head><body>
+<header><img class="logo" src="../logo.png" alt="Kapi'yva"><div><h1>ECOMEDIDOR</h1><p>Proceso de Producción · First Versions</p></div></header>
+<main><h2>Así se construyó el Ecomedidor</h2><p>Fotos del armado de las primeras versiones.</p>
+<div class="frame"><span class="tag">FIRST VERSIONS</span><div class="stage" id="st"><div class="s"><img src="fotos/1.jpg" alt="Preparando el cableado" data-c="Preparando el cableado"></div><div class="s"><img src="fotos/2.jpg" alt="Conexión de cables a las cajas" data-c="Conexión de cables a las cajas"></div><div class="s"><img src="fotos/3.jpg" alt="Armado en equipo" data-c="Armado en equipo"></div><div class="s"><img src="fotos/4.jpg" alt="Montaje del tablero" data-c="Montaje del tablero"></div><div class="s"><img src="fotos/5.jpg" alt="Detalle de las conexiones" data-c="Detalle de las conexiones"></div><div class="s"><img src="fotos/6.jpg" alt="Instalación de las borneras" data-c="Instalación de las borneras"></div><div class="s"><img src="fotos/7.jpg" alt="Ajuste del riel DIN" data-c="Ajuste del riel DIN"></div><div class="s"><img src="fotos/8.jpg" alt="Trabajo en equipo" data-c="Trabajo en equipo"></div><div class="s"><img src="fotos/9.jpg" alt="Trabajo en la computadora" data-c="Trabajo en la computadora"></div><button class="ar" id="pv">‹</button><button class="ar" id="nx">›</button></div>
+<div class="bar"><span id="cap"></span><span id="ct"></span></div><div class="pg"><i id="pb"></i></div><div id="th"></div></div>
+<a class="btn" href="../index.html">← Volver al inicio</a></main>
+<script>const $=s=>document.querySelector(s),S=[...document.querySelectorAll('.s')],T=[],D=5000;let i=0,t0=0,pause=0;
+S.forEach((s,k)=>{const m=s.firstChild.cloneNode();m.onclick=()=>go(k);$('#th').appendChild(m);T.push(m)});
+function go(n){i=(n+S.length)%S.length;S.forEach((s,k)=>s.classList.toggle('on',k==i));T.forEach((m,k)=>m.classList.toggle('on',k==i));const im=S[i].firstChild;$('#st').style.setProperty('--b','url('+im.src+')');$('#cap').textContent=im.dataset.c;$('#ct').textContent=(i+1)+' / '+S.length;t0=performance.now()}
+$('#pv').onclick=()=>go(i-1);$('#nx').onclick=()=>go(i+1);document.onkeydown=e=>{if(e.key=='ArrowLeft')go(i-1);if(e.key=='ArrowRight')go(i+1)};
+let x0;$('#st').ontouchstart=e=>x0=e.touches[0].clientX;$('#st').ontouchend=e=>{const d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>40)go(i+(d<0?1:-1))};
+$('.frame').onmouseenter=()=>pause=performance.now();$('.frame').onmouseleave=()=>{t0+=performance.now()-pause;pause=0};
+function tick(n){if(!pause){const p=(n-t0)/D;$('#pb').style.width=Math.min(100,p*100)+'%';if(p>=1)go(i+1)}requestAnimationFrame(tick)}go(0);requestAnimationFrame(tick);</script></body></html>
