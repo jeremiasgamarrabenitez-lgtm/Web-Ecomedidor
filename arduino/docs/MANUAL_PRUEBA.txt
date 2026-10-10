@@ -1,0 +1,19 @@
+# MANUAL DE PRUEBA DEL SIMULADOR
+
+1. Conectar Arduino por USB.
+2. Abrir la aplicación mediante localhost.
+3. Pulsar "Conectar Arduino".
+4. Seleccionar el puerto del Arduino.
+5. Verificar 0 W y 0 kWh.
+6. Enchufar físicamente el aparato de la Toma 1.
+7. Verificar TV = 80 W y LED encendido.
+8. Esperar 2 minutos. La energía debe aumentar aproximadamente 0,0027 kWh.
+9. Enchufar la cocina. La potencia debe pasar a 1880 W.
+10. Desenchufar la TV. La potencia debe quedar en 1800 W, pero el consumo acumulado NO debe volver a cero.
+11. Enchufar el cargador. La potencia debe ser 1810 W.
+12. Desenchufar todo. La potencia debe quedar en 0 W.
+13. La energía acumulada y el costo deben conservarse.
+14. "Nueva simulación" reinicia los acumuladores.
+
+IMPORTANTE:
+Los W son valores simulados. El sistema no realiza medición eléctrica real.
